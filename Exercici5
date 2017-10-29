@@ -1,0 +1,55 @@
+index.php:
+<html>
+    <head>
+    </head>
+    <body>
+        <form action='validate.php' method='post'>
+            <p>
+                Introduce la URL: 
+                <input type='text' name='page'/>
+            </p>
+            <input type='submit' value='Enviar'/>
+        </form>
+    </body>
+</html>
+...................................................................................................................
+validate.php:
+<?php
+    $page = $_POST["page"];
+    $url = "src/".$page;
+    header("Location: ".$url.".php");
+?>
+...................................................................................................................
+Despues tendremos una carpeta llamada src la cual conendra las siguientes páginas:
+1.php:
+<html>
+    <head>
+    </head>
+    <body>
+        <?php
+            echo "Esta es la pagina 1 de ejemplo";
+        ?>
+    </body>
+</html>
+--------------------------------------------------------------------------------------------------------------------
+2.php:
+<html>
+    <head>
+    </head>
+    <body>
+        <?php
+            echo "Esta es la pagina 2 de ejemplo";
+        ?>
+    </body>
+</html>
+----------------------------------------------------------------------------------------------------------------------
+3.php:
+<html>
+    <head>
+    </head>
+    <body>
+        <?php
+            echo "Esta es la pagina 3 de ejemplo";
+        ?>
+    </body>
+</html>
