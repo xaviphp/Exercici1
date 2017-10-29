@@ -1,0 +1,119 @@
+index.php:
+<html>
+    <head>
+        <title>Ejercicio 3.1</title>
+        <meta charset="UTF-8">
+        <style>
+            .error {color:red;}
+        </style>
+    </head>
+    <body>
+        
+        <?php
+        
+            function mostrarForm($error)
+            {
+                    if($error)
+                    {
+                        echo "<div class='error'>Solo se permiten valores entre 1 y 10 incluidos</div>";
+                    }
+                    echo "<form action='3.1.validate.php' method='post'>"; 
+                    echo "<p>Numero de cajas de texto: <input type='text' name='ncajas' /></p>";
+                    echo "<input type='submit' value='Enviar'/></form>";
+            }
+        
+            $error = $_GET['error'];
+            mostrarForm($error);
+        ?>
+    </body>
+</html>
+
+....................................................................................................................
+3.1validate.php:
+<?php
+    function error()
+    {
+        header("Location: index.php?error=1");
+    }
+
+
+    if( ($_POST["ncajas"] > 0) && ($_POST["ncajas"] <= 10) )
+    {
+        $ncajas = $_POST["ncajas"];
+        header("Location: 3.2.php?ncajas=".$ncajas);
+    }
+    elseif($_POST["ncajas"] == null)
+    {
+        error();
+    }
+    else
+    {
+        error();
+    }
+?>
+
+.........................................................................................................................
+3.2.php:
+<html>
+    <head>
+        <title>Ejercicio 3.2</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <?php
+        
+            
+            
+            $ncajas = $_GET['ncajas'];
+        
+            echo "<form action='3.3.php?ncajas=".$ncajas."' method='post'>";
+            echo "<table id='table'>";
+            for($i = 1; $i <= $ncajas; $i++)
+            {
+               echo "<tr><td><p>Numero ".$i." <input type='text' name='caja".$i."' /></p></td></tr>"; 
+            }
+            echo "</table><p><input type='submit' value='Enviar' /></p></form>";
+        ?>
+    </body>
+</html>
+...............................................................................................................................
+3.3.php:
+<html>
+    <head>
+        <title>Ejercicio 3.3</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <?php
+            $ncajas = $_GET['ncajas'];
+            $arraynum = array();
+            $rellenadas;
+            
+            for($i=1; $i <= $ncajas; $i++)
+            {
+                $numero = $_REQUEST["caja".$i];
+                if ( $numero != null)
+                {
+                    array_push($arraynum, $numero);
+                    $rellenadas++;
+                }
+            }
+        
+            echo "Se han rellenado ".$rellenadas." cajas de texto en la anterior página <br>";
+        
+            if($rellenadas >= 2)
+            {
+                
+                if( (count($arraynum)) != (count(array_unique($arraynum))) )
+                {
+                    echo "Las cajas contenían almenos 2 valores repetidos";
+                }
+                else
+                {
+                    echo "No habia números repetidos";
+                }
+            }
+        ?>
+    </body>
+</html>
+
