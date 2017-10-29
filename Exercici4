@@ -1,0 +1,127 @@
+index.php:
+<html>
+    <head>
+        <title>Ejercicio 4</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <?php
+            function dado1 ()
+            {
+                echo "<img src='img/1.svg'>";
+            }
+            function dado2 ()
+            {
+                echo "<img src='img/2.svg'>";
+            }
+            function dado3 ()
+            {
+                echo "<img src='img/3.svg'>";
+            }
+            function dado4 ()
+            {
+                echo "<img src='img/4.svg'>";
+            }
+            function dado5 ()
+            {
+                echo "<img src='img/5.svg'>";
+            }
+            function dado6 ()
+            {
+                echo "<img src='img/6.svg'>";
+            }
+
+            function mostrarDado ($opc)
+            {
+                switch($opc)
+                {
+                    case 1:
+                        dado1 ();
+                    break;
+                    case 2:
+                        dado2 ();
+                    break;
+                    case 3:
+                        dado3 ();
+                    break;
+                    case 4:
+                        dado4 ();
+                    break;
+                    case 5:
+                        dado5 ();
+                    break;
+                    case 6:
+                        dado6 ();
+                    break;
+                }
+            }
+
+            function aleat ()
+            {
+                $num = rand(1,6);
+                return $num;
+            }
+
+            function mostrarForm ($pt1, $pt2, $turno)
+            {
+                $url = "index.php";
+                echo "Puntuacion Jugador 1 -> ".$pt1;
+                echo "<br>Puntuacion Jugador 2 -> ".$pt2;
+                echo "<br>Turno -> ".$turno;
+                echo "<form action=".$url."?pt1=".$pt1."&pt2=".$pt2."&turno=".$turno." method='post'>";
+                echo "<input type='submit' name='enviar' value='Tirar dados al azar!'/></form>";
+            }
+
+
+
+            if(isset($_REQUEST['enviar']))
+            {
+
+                $pt1 = $_REQUEST['pt1'];
+                $pt2 = $_REQUEST['pt2'];
+                $turno = $_REQUEST['turno'];
+
+                $tiro1 = aleat();
+                mostrarDado($tiro1);
+                $tiro2 = aleat();
+                mostrarDado($tiro2);
+                $puntos = 0;
+
+                if($tiro1 > $tiro2)
+                {
+                    $puntos = $tiro1 - $tiro2;
+                    $pt1 = $pt1 + $puntos;
+                    echo "<br>Gana jugador 1!!<br>";
+
+                }
+                elseif($tiro1 < $tiro2)
+                {
+                    $puntos = $tiro2 - $tiro1;
+                    $pt2 = $pt2 + $puntos;
+                    echo "<br>Gana jugador 2!!<br>";
+                }
+                elseif($tiro1 == $tiro2)
+                {
+                    echo "<br>Empate, prueba otra vez<br>";
+                }
+
+                $turno = $turno + 1;
+
+                mostrarForm($pt1, $pt2, $turno);
+
+            }
+            else
+            {
+                $pt1 = 0;
+                $pt2 = 0;
+                $turno = 1;
+                mostrarForm($pt1, $pt2, $turno);
+            }
+
+
+
+        ?>
+    </body>
+</html>
+
+*Las imagenes estan en una carpeta subida al servidor
