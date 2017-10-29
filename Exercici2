@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <title>Exercici 2</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <?php
+            function ordenApellidos ($apellidos1r, $apellidos2n)
+            {
+                $apellidos = array_merge($apellidos1r, $apellidos2n);
+                sort($apellidos);
+
+                return $apellidos;
+            }
+
+            $apellidos1r = array('Benitez','Fernández','Gómez','López','Obrevo','Roncero');
+            $apellidos2n = array('Aytekin','Guardiola','Pedrerol','Stark','Undiano','Villar');
+
+            $apellidosOrdenados = ordenApellidos($apellidos1r, $apellidos2n);
+
+            foreach($apellidosOrdenados as $key => $value)
+            {
+                echo $value."<br>";
+            }
+        ?>
+    </body>
+</html>
